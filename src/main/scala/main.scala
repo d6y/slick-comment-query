@@ -43,7 +43,6 @@ object Example {
     ): DBIOAction[Seq[E#TableElementType], NoStream, dbio.Effect.Read] = {
       val sql         = q.result.statements.mkString
       val labelledSql = sql + formatComment(label)
-      println(labelledSql)
       q.result.overrideStatements(Seq(labelledSql))
     }
 
