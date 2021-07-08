@@ -59,7 +59,7 @@ object Example {
     val program = for {
       _       <- messages.schema.create
       _       <- messages ++= freshTestData
-      results <- q.labelledResult("This is query")
+      results <- q.labelledResult("This is my query")
     } yield results
 
     val db = Database.forConfig("example")
