@@ -49,7 +49,7 @@ object Example {
     implicit class QueryLabellingOps[E <: AbstractTable[_]](q: TableQuery[E]) {
 
       /** Never pass end-user supplied text in the label: it's a SQL injection route */
-      def labelledResult(nonUserSuppliedText: String) = QueryLabelling.labelResult(q, nonUserSuppliedText)
+      def labelledResult[S <: String with Singleton](nonUserSuppliedText: S) = QueryLabelling.labelResult(q, nonUserSuppliedText)
     }
   }
 
@@ -59,7 +59,7 @@ object Example {
     val program = for {
       _       <- messages.schema.create
       _       <- messages ++= freshTestData
-      results <- q.labelledResult("This is query 1")
+      results <- q.labelledResult("This is query")
     } yield results
 
     val db = Database.forConfig("example")
